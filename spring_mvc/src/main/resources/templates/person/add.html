@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>用户新增</title>
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#submit").click(function () {
+                var personName = $("#personName").val();
+                var note = $("#note").val();
+                if ($.trim(personName) == "") {
+                    alert("用户名不能为空！");
+                    return;
+                }
+                var params = {
+                    personName: personName,
+                    sex:"0",
+                    note: note
+                };
+
+
+                $.ajax({
+                    url: "../person/insert",
+                    //告知传递参数类型为json，不可缺少
+                    type:"post",
+                    contentType:"application/json",
+                    //将json转化为字符串传递
+                    data: JSON.stringify(params),
+                    //dataType:"text",
+                    //成功后得方法
+                    success: function (result) {
+                        if (result == null || result.id == null) {
+                            alert("插入失败");
+                            return;
+                        }
+                        alert("插入成功");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div style="margin: 20px 0;"></div>
+<form id="insertForm">
+    <table>
+        <tr>
+            <td>用户名称</td>
+            <td><input id="personName" name="personName"></td>
+        </tr>
+        <tr>
+            <td>备注</td>
+            <td><input id="note" name="note"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="right"><input id="submit" type="button" value="提交"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

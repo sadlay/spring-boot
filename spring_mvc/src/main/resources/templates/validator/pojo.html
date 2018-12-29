@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>测试JSR-303</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //请求验证的POJO
+            var pojo = {
+                id: null,
+                date: '2018-11-13',
+                doubleValue: 99999.09,
+                integer: 100,
+                range: 1000,
+                email: 'email',
+                size: 'testchangdu',
+                regexp: 'a,b,c,d'
+            }
+            $.ajax({
+                // 请求地址
+                url: "../valid/validate",
+                type:"post",
+                //告知传递参数类型为JSON
+                contentType:"application/json",
+                //将JSON转为字符串传递
+                data: JSON.stringify(pojo),
+                //成功后的方法
+                success: function (result) {
+                    alert("success");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

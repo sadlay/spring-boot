@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>获取请求头参数</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.js"></script>
+    <script type="text/javascript">
+       $.post({
+           url:"./person",
+           //设置请求头参数
+           headers:{
+               id:"1"
+           },
+           //成功后的方法
+           success:function (person) {
+               if(person==null||person.id==null){
+                   alert("获取失败");
+                   return;
+               }
+               //弹出请求返回的用户信息
+               alert("id="+person.id+",person_name="+person.personName);
+           }
+       });
+    </script>
+</head>
+<body>
+</body>
+</html>
