@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>spring_rest</name>
+    <name>spring-rest</name>
     <description>Demo project for rest</description>
 
     <parent>

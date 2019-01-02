@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.lay</groupId>
-	<artifactId>springboot_redis</artifactId>
-	<version>springboot_redis</version>
+	<artifactId>springboot-redis</artifactId>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>springboot_redis</name>
+	<name>springboot-redis</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
