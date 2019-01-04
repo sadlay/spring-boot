@@ -1,0 +1,33 @@
+#端口配置
+server:
+  port: 8088
+
+#springp配置
+spring:
+  application:
+    name: spring-security
+
+  #数据库
+  datasource:
+    url: jdbc:mysql://192.168.3.253:3306/spring_security?useUnicode=true&characterEncoding=utf8
+    username: developer
+    password: 1q@W3e$R
+
+  #view配置
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+
+  security:
+    #自定义用户名密码
+    user:
+      name: myuser
+      password: 123456
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.lay.springboot.springsecurity.model
+  ##开启驼峰映射
+  configuration:
+    map-underscore-to-camel-case: true
