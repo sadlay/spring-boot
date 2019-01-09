@@ -2,6 +2,7 @@ package com.lay.springboot.springsecurity.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.lay.springboot.springsecurity.model.Role;
 import com.lay.springboot.springsecurity.model.User;
 import com.lay.springboot.springsecurity.model.UserExample;
 
@@ -16,4 +17,8 @@ import java.util.List;
 public interface UserService {
     public int insertUser(User user);
     public PageInfo<User> allUser(UserExample userExample);
+
+    public User getUserByName(String userName);
+
+    public List<Role> findRolesByUserName(String userName);
 }

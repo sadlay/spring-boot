@@ -17,7 +17,7 @@ import javax.sql.DataSource;
  * @Date: Created in 10:10 2019/1/3
  * @Modified By:IntelliJ IDEA
  */
-@Configuration
+//@Configuration
 public class DatabaseUserConfig extends WebSecurityConfigurerAdapter {
     //注入配置的阴匙
     @Value("${system.user.password.secret}")

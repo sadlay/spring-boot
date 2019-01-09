@@ -1,7 +1,5 @@
 package com.lay.springboot.springsecurity.model;
 
-import com.github.pagehelper.Page;
-
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -49,7 +47,6 @@ public class User implements Serializable {
 
     /**
      * 自增主键
-     *
      * @return id 自增主键
      */
     public Integer getId() {
@@ -58,7 +55,6 @@ public class User implements Serializable {
 
     /**
      * 自增主键
-     *
      * @param id 自增主键
      */
     public void setId(Integer id) {
@@ -67,7 +63,6 @@ public class User implements Serializable {
 
     /**
      * 用户名
-     *
      * @return user_name 用户名
      */
     public String getUserName() {
@@ -76,7 +71,6 @@ public class User implements Serializable {
 
     /**
      * 用户名
-     *
      * @param userName 用户名
      */
     public void setUserName(String userName) {
@@ -85,7 +79,6 @@ public class User implements Serializable {
 
     /**
      * 密码
-     *
      * @return pwd 密码
      */
     public String getPwd() {
@@ -94,7 +87,6 @@ public class User implements Serializable {
 
     /**
      * 密码
-     *
      * @param pwd 密码
      */
     public void setPwd(String pwd) {
@@ -103,7 +95,6 @@ public class User implements Serializable {
 
     /**
      * 是否可用
-     *
      * @return available 是否可用
      */
     public Integer getAvailable() {
@@ -112,7 +103,6 @@ public class User implements Serializable {
 
     /**
      * 是否可用
-     *
      * @param available 是否可用
      */
     public void setAvailable(Integer available) {
@@ -121,7 +111,6 @@ public class User implements Serializable {
 
     /**
      * 注释
-     *
      * @return note 注释
      */
     public String getNote() {
@@ -130,7 +119,6 @@ public class User implements Serializable {
 
     /**
      * 注释
-     *
      * @param note 注释
      */
     public void setNote(String note) {

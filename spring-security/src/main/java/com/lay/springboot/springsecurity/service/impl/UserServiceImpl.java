@@ -3,6 +3,8 @@ package com.lay.springboot.springsecurity.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lay.springboot.springsecurity.dao.UserMapper;
+import com.lay.springboot.springsecurity.dao.UserRoleMapper;
+import com.lay.springboot.springsecurity.model.Role;
 import com.lay.springboot.springsecurity.model.User;
 import com.lay.springboot.springsecurity.model.UserExample;
 import com.lay.springboot.springsecurity.service.UserService;
@@ -22,6 +24,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+
+
+    @Autowired
+    UserRoleMapper userRoleMapper;
     @Override
     public int insertUser(User user) {
         int result=userMapper.insert(user);
@@ -36,4 +42,16 @@ public class UserServiceImpl implements UserService {
         PageInfo pageInfo=new PageInfo(userList);
         return pageInfo;
     }
+
+    @Override
+    public User getUserByName(String userName) {
+        return userRoleMapper.getUserByName(userName);
+    }
+
+    @Override
+    public List<Role> findRolesByUserName(String userName) {
+        return userRoleMapper.findRolesByUserName(userName);
+    }
+
+
 }

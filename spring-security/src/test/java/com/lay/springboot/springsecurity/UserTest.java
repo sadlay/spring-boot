@@ -51,4 +51,10 @@ public class UserTest {
     public void propsConfigTest(){
         System.out.println(PropsConfig.password.get("secret2"));
     }
+
+    @Test
+    public void testUserRole(){
+        System.out.println(userService.getUserByName("lyn"));
+        System.out.println(userService.findRolesByUserName("sadlay"));
+    }
 }
