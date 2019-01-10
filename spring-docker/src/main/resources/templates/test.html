@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.js"></script>
+    <script type="text/javascript">
+        alert("aaa");
+        for (var i=1;i<=1;i++) {
+            var msg="测试"+i;
+            var params = {
+                msg:msg
+            };
+            //通过post请求后端
+            $.post("./send-event", params, function (result) {
+
+            });
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
