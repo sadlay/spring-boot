@@ -42,6 +42,31 @@ public class DatabaseUserDefConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        configureRememberMe(http);
+        http.httpBasic().realmName("my-basic-name");
+    }
+
+    //用户认证功能————记住我
+    protected void configureRememberMe(HttpSecurity http) throws Exception{
+        http
+                //访问/admin下的请求需要管理员权限
+            .authorizeRequests().antMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                // 启用remember me 功能
+            .and().rememberMe().tokenValiditySeconds(86400).key("remember-me-key")
+                //启用http batic功能
+            .and().httpBasic()
+                //通过签名后可以访问任何请求
+            .and().authorizeRequests().antMatchers("/**").permitAll()
+                //设置登陆页和默认的跳转路径
+            .and().formLogin().loginPage("/login/page")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/admin/welcome1")
+                //等处页面和默认跳转路径
+                .and().logout().logoutUrl("/logout/page")
+                .logoutSuccessUrl("/welcome");
+    }
+
+    private void configureBySelect(HttpSecurity http) throws Exception{
         //限定签名后的权限
         http.
                 //requiresChannel().antMatchers("/admin/**").requiresSecure()
@@ -65,7 +90,6 @@ public class DatabaseUserDefConfig extends WebSecurityConfigurerAdapter {
                 .and().rememberMe()
                 //启动http基础验证
                 .and().httpBasic();
-
     }
 
 }

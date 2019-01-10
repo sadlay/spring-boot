@@ -34,6 +34,11 @@ public class BaseController {
     public String welcome() {
         return "Spring Security!";
     }
+    @RequestMapping("/admin/welcome1")
+    @ResponseBody
+    public String welcome1() {
+        return "Spring Security ! login";
+    }
 
     @RequestMapping("/csrf/form")
     public String csrfForm() {

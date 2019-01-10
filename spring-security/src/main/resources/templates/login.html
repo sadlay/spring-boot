@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>自定义表单登陆</title>
+</head>
+<body>
+<form action="../login" method="post">
+    <p>
+        用户名：<input id="username" name="username" type="text" value="" />
+    </p>
+    <p>
+        密码：<input id="password" name="password" type="password" value="" />
+    </p>
+    <p>
+        记住我：<input id="remember_me" name="remember-me" type="checkbox"/>
+    </p>
+    <p>
+        <input type="submit" value="提交"/>
+    </p>
+    <input type="hidden" th:id="${_csrf.parameterName}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+</form>
+</body>
+</html>
