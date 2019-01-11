@@ -1,5 +1,6 @@
 package com.lay.springboot.springsecurity.model;
 
+
 import java.io.Serializable;
 
 public class Role implements Serializable {
