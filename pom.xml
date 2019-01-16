@@ -9,13 +9,20 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
+        <module>mybatis-generate</module>
+        <module>spring-async</module>
+        <module>spring-docker</module>
+        <module>spring-filter</module>
         <module>spring-mvc</module>
         <module>spring-rest</module>
         <module>spring-security</module>
+        <module>spring-session</module>
         <module>spring-websocket</module>
         <module>springboot-aop</module>
+        <module>springboot-beetl</module>
         <module>springboot-database</module>
         <module>springboot-ioc</module>
         <module>springboot-redis</module>
+        <module>util</module>
     </modules>
 </project>
