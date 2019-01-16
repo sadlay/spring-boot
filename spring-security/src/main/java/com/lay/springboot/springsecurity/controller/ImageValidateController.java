@@ -1,8 +1,6 @@
 package com.lay.springboot.springsecurity.controller;
 
 import com.lay.springboot.springsecurity.util.ImageCode;
-import org.springframework.session.SessionRepository;
-import org.springframework.session.web.http.SessionRepositoryFilter;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
