@@ -65,8 +65,8 @@
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
         <!--数据库中表生成类的信息-->
         <table
-                tableName="t_user"
-                domainObjectName="User"
+                tableName="t_user_role"
+                domainObjectName="TUserRole"
                 enableCountByExample="true"
                 enableUpdateByExample="true"
                 enableDeleteByExample="true"
