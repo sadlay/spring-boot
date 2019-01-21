@@ -1,8 +1,12 @@
 package com.lay.springboot.beetl.entity;
 
-import java.io.Serializable;
+import org.beetl.sql.core.Tail;
+import org.beetl.sql.core.TailBean;
 
-public class TUser implements Serializable {
+import java.io.Serializable;
+import java.util.List;
+
+public class TUser extends TailBean implements Serializable {
     /**
      * 自增主键
      */
@@ -27,6 +31,16 @@ public class TUser implements Serializable {
      * 注释
      */
     private String note;
+
+    private List<TRole> tRoleList;
+
+    public List<TRole> gettRoleList() {
+        return tRoleList;
+    }
+
+    public void settRoleList(List<TRole> tRoleList) {
+        this.tRoleList = tRoleList;
+    }
 
     /**
      * t_user
@@ -124,6 +138,7 @@ public class TUser implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
+
 
     @Override
     public String toString() {

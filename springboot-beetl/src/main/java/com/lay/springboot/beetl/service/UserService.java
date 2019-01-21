@@ -15,6 +15,8 @@ import java.util.List;
 public interface UserService {
     public TUser getUserById(Integer id);
 
+    public TUser getUserAllById(Integer id);
+
     public List<TUser> getUsersByIdGreat(Integer id);
 
 

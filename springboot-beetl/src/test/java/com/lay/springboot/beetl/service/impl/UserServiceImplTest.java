@@ -51,4 +51,11 @@ public class UserServiceImplTest {
 
     }
 
+    @Test
+    public void getUserAllById(){
+
+        TUser userAllById = userService.getUserAllById(1);
+        System.out.println(userAllById);
+    }
+
 }
