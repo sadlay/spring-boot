@@ -1,6 +1,7 @@
 package com.lay.springboot.beetl.dao;
 
 import com.lay.springboot.beetl.entity.TUser;
+import org.beetl.sql.core.engine.PageQuery;
 import org.beetl.sql.core.mapper.BaseMapper;
 
 import java.util.List;
@@ -19,4 +20,16 @@ public interface TUserDao extends BaseMapper<TUser> {
                 .andEq(TUser::getNote,"ss")
                 .select();
     }
+
+    default List<TUser> getUsersByIdGreat(Integer id){
+        return createLambdaQuery()
+                .andGreat(TUser::getId,id)
+                .select();
+    }
+    default PageQuery<TUser> getUsers(TUser user){
+        return createLambdaQuery()
+                .andEq(TUser::getNote,null)
+                .page(1,2);
+    }
+
 }

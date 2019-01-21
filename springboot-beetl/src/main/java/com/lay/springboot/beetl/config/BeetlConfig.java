@@ -1,8 +1,7 @@
 package com.lay.springboot.beetl.config;
 
-import org.beetl.sql.core.ClasspathLoader;
-import org.beetl.sql.core.Interceptor;
-import org.beetl.sql.core.UnderlinedNameConversion;
+import org.beetl.sql.core.*;
+import org.beetl.sql.core.db.DBStyle;
 import org.beetl.sql.core.db.MySqlStyle;
 import org.beetl.sql.ext.DebugInterceptor;
 import org.beetl.sql.ext.spring4.BeetlSqlDataSource;
@@ -47,13 +46,13 @@ public class BeetlConfig {
     @Bean(name = "sqlManagerFactoryBean")
     @Primary
     public SqlManagerFactoryBean sqlManagerFactoryBean(@Qualifier("masterSource") DataSource datasource,
-                                                       @Qualifier("slavesSource") DataSource slavesSouirce) {
+                                                       @Qualifier("slavesSource") DataSource slaveSource) {
         SqlManagerFactoryBean factory = new SqlManagerFactoryBean();
         BeetlSqlDataSource source = new BeetlSqlDataSource();
         //主数据库
         source.setMasterSource(datasource);
         //从数据库
-        source.setSlaves(new DataSource[]{slavesSouirce});
+        source.setSlaves(new DataSource[]{slaveSource});
         factory.setCs(source);
         //数据库类型
         factory.setDbStyle(new MySqlStyle());
@@ -63,6 +62,30 @@ public class BeetlConfig {
         factory.setNc(new UnderlinedNameConversion());
         factory.setSqlLoader(new ClasspathLoader("/sql"));
         return factory;
+    }
+
+    /**
+     *
+     * @Description: SQLManager配置2
+     * @param:
+     * @param datasource
+     * @param slaveSource
+     * @return: org.beetl.sql.core.SQLManager
+     * @auther: lay
+     * @date: 15:42 2019/1/21
+     */
+    //@Bean
+    public SQLManager sqlManager(@Qualifier("masterSource") DataSource datasource,
+                                 @Qualifier("slavesSource") DataSource slaveSource){
+        ConnectionSource source= ConnectionSourceHelper.getMasterSlave(datasource,new DataSource[]{slaveSource});
+        DBStyle mysql = new MySqlStyle();
+        // sql语句放在classpagth的/sql 目录下
+        SQLLoader loader = new ClasspathLoader("/sql");
+        // 数据库命名跟java命名一样，所以采用DefaultNameConversion，还有一个是UnderlinedNameConversion，下划线风格的
+        UnderlinedNameConversion nc = new  UnderlinedNameConversion();
+        // 最后，创建一个SQLManager,DebugInterceptor 不是必须的，但可以通过它查看sql执行情况
+        SQLManager sqlManager = new SQLManager(mysql,loader,source,nc,new Interceptor[]{new DebugInterceptor()});
+        return sqlManager;
     }
 
     //开启事务管理

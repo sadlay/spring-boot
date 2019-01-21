@@ -1,6 +1,10 @@
 package com.lay.springboot.beetl.service;
 
 import com.lay.springboot.beetl.entity.TUser;
+import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.query.LambdaQuery;
+
+import java.util.List;
 
 /**
  * @Description:
@@ -10,4 +14,9 @@ import com.lay.springboot.beetl.entity.TUser;
  */
 public interface UserService {
     public TUser getUserById(Integer id);
+
+    public List<TUser> getUsersByIdGreat(Integer id);
+
+
+    public PageQuery<TUser> getUsers(TUser tUser);
 }
