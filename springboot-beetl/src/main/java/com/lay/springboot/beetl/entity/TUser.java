@@ -2,10 +2,16 @@ package com.lay.springboot.beetl.entity;
 
 import org.beetl.sql.core.Tail;
 import org.beetl.sql.core.TailBean;
+import org.beetl.sql.core.orm.OrmCondition;
+import org.beetl.sql.core.orm.OrmQuery;
 
 import java.io.Serializable;
 import java.util.List;
-
+@OrmQuery(
+        value = {
+                @OrmCondition(target = TRole.class,attr = "id",targetAttr = "userId",sqlId = "tUser.selectRole",type = OrmQuery.Type.MANY,alias = "roleList",lazy = true)
+        }
+)
 public class TUser extends TailBean implements Serializable {
     /**
      * 自增主键
@@ -32,14 +38,14 @@ public class TUser extends TailBean implements Serializable {
      */
     private String note;
 
-    private List<TRole> tRoleList;
+    private List<TRole> roleList;
 
-    public List<TRole> gettRoleList() {
-        return tRoleList;
+    public List<TRole> getRoleList() {
+        return roleList;
     }
 
-    public void settRoleList(List<TRole> tRoleList) {
-        this.tRoleList = tRoleList;
+    public void setRoleList(List<TRole> roleList) {
+        this.roleList = roleList;
     }
 
     /**

@@ -10,7 +10,7 @@ import java.util.List;
 
 @OrmQuery(
         value = {
-                @OrmCondition(target = TUser.class,attr = "id",targetAttr = "roleId",sqlId = "tRole.selectUser",type = OrmQuery.Type.MANY,alias = "userList",lazy = false)
+                @OrmCondition(target = TUser.class,attr = "id",targetAttr = "roleId",sqlId = "tRole.selectUser",type = OrmQuery.Type.MANY,alias = "userList",lazy = true)
         }
 )
 public class TRole extends TailBean implements Serializable {

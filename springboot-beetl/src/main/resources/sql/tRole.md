@@ -1,6 +1,6 @@
 selectUser
 ===
-    select u.* from t_user_role ur left join t_user u on ur.user_id=u.id where ur.role_id=#id#
+    select u.* from t_user_role ur left join t_user u on ur.user_id=u.id where ur.role_id=#roleId#
     
 getRoleAllById
 ===

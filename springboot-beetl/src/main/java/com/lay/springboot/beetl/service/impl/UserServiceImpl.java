@@ -1,6 +1,7 @@
 package com.lay.springboot.beetl.service.impl;
 
 import com.lay.springboot.beetl.dao.TUserDao;
+import com.lay.springboot.beetl.entity.TRole;
 import com.lay.springboot.beetl.entity.TUser;
 import com.lay.springboot.beetl.service.UserService;
 import org.beetl.sql.core.SQLManager;
@@ -49,6 +50,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageQuery<TUser> getUsers(TUser tUser) {
         return userDao.getUsers(tUser);
+    }
+
+    @Override
+    public PageQuery<TUser> selectTUser(int pageNum, int pageSize) {
+        PageQuery<TUser> pageQuery=new PageQuery(pageNum,pageSize);
+        userDao.templatePage(pageQuery);
+        return pageQuery;
     }
 
 

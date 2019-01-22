@@ -1,5 +1,6 @@
 package com.lay.springboot.beetl.service;
 
+import com.lay.springboot.beetl.entity.TRole;
 import com.lay.springboot.beetl.entity.TUser;
 import org.beetl.sql.core.engine.PageQuery;
 import org.beetl.sql.core.query.LambdaQuery;
@@ -21,4 +22,6 @@ public interface UserService {
 
 
     public PageQuery<TUser> getUsers(TUser tUser);
+
+    public PageQuery<TUser> selectTUser(int pageNum, int pageSize);
 }

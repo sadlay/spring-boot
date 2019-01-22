@@ -3,6 +3,7 @@ package com.lay.springboot.beetl.dao;
 import com.lay.springboot.beetl.entity.TUser;
 import org.beetl.sql.core.engine.PageQuery;
 import org.beetl.sql.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

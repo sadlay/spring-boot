@@ -36,10 +36,10 @@ condition
 getUserAllById
 ===
     select * from t_user where id=#id#
-    @orm.many({"id":"userId"},"tUser.selectRole","TRole",{"alias":"tRoleList"});
+    @orm.many({"id":"userId"},"tUser.selectRole","TRole",{"alias":"roleList"});
 
 selectRole
 ===
-    select r.* from t_user_role ur left join t_role r on ur.role_id=r.id where ur.user_id=#id#
+    select r.* from t_user_role ur left join t_role r on ur.role_id=r.id where ur.user_id=#userId#
 
 	

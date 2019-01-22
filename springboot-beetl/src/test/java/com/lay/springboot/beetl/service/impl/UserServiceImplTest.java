@@ -1,5 +1,6 @@
 package com.lay.springboot.beetl.service.impl;
 
+import com.lay.springboot.beetl.entity.TRole;
 import com.lay.springboot.beetl.entity.TUser;
 import com.lay.springboot.beetl.service.UserService;
 import org.beetl.sql.core.engine.PageQuery;
@@ -54,8 +55,17 @@ public class UserServiceImplTest {
     @Test
     public void getUserAllById(){
 
-        TUser userAllById = userService.getUserAllById(1);
+        TUser userAllById = userService.getUserAllById(2);
         System.out.println(userAllById);
+    }
+
+
+    @Test
+    public void selectTUser() {
+        PageQuery<TUser> tUserPageQuery= userService.selectTUser(1,10);
+        List<TUser> list = tUserPageQuery.getList();
+        Object roleList = list.get(0).get("roleList");
+        System.out.println(list);
     }
 
 }
