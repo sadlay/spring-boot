@@ -9,7 +9,10 @@ import org.springframework.context.annotation.Bean;
 
 import com.lay.dao.MyBatisPersonDao;
 
+import javax.sql.DataSource;
+
 //@Configuration
+
 public class MybatisConfig {
     //这里的SqlSessionFactory是spring boot自动为我们生成的。
     @Autowired

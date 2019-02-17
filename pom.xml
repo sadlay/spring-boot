@@ -6,6 +6,7 @@
 
     <groupId>com.lay</groupId>
     <artifactId>spring-boot</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
@@ -24,5 +25,6 @@
         <module>springboot-ioc</module>
         <module>springboot-redis</module>
         <module>util</module>
+        <module>thread-local</module>
     </modules>
 </project>

@@ -38,9 +38,9 @@ public class AsyncServiceImpl implements AsyncService {
         log.info("asyncInvokeReturnFuture,线程：{},参数：{}",Thread.currentThread().getName()+" "+Thread.currentThread().getId(),i);
         Future<String> future=null;
         try {
-            Thread.sleep(1000L);
+            Thread.sleep(5000L);
             future=new AsyncResult<>("success："+i);
-            throw new IllegalArgumentException("a");
+            //throw new IllegalArgumentException("a");
         }catch (InterruptedException e){
             future=new AsyncResult<>("error");
         }
