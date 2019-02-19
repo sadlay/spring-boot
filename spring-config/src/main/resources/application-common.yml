@@ -1,0 +1,7 @@
+lay:
+  username: ${mysql.username}
+  password: ${mysql.password}
+
+spring:
+  profiles:
+    active: prod
