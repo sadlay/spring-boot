@@ -1,0 +1,18 @@
+server:
+  port: 9002
+spring:
+  redis:
+    port: 6379
+    host: 192.168.3.189
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+  application:
+    name: sso-mock-app2
+sso:
+  server:
+    url: http://localhost:9003
+  client:
+    protect: /hello

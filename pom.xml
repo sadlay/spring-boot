@@ -32,5 +32,7 @@
         <module>util</module>
         <module>thread-local</module>
         <module>spring-config</module>
+        <module>spring-sso</module>
+        <module>spring-sso</module>
     </modules>
 </project>
