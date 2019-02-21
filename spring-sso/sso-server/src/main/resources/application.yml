@@ -4,6 +4,7 @@ spring:
   application:
     name: sso-server
   redis:
+    database: 13
     host: 192.168.3.189
     port: 6379
     password: 123456

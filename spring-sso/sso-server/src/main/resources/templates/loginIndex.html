@@ -6,7 +6,7 @@
 </head>
 <body>
 <form th:action="@{/doLogin}" method="post">
-    <input type="hidden" name="originlUrl" th:value="${originUrl}"/>
+    <input type="hidden" id="originUrl" name="originUrl" th:value="${originUrl}"/>
     <div><label> User Name : <input type="text" name="userName"/> </label></div>
     <div><label> User Password : <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Login"/></div>

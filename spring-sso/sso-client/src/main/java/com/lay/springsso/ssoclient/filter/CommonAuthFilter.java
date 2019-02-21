@@ -1,10 +1,10 @@
 package com.lay.springsso.ssoclient.filter;
 
 import com.lay.springsso.ssoclient.service.UserAccessService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -21,7 +21,7 @@ import java.io.IOException;
  */
 
 @Order(1)
-@WebFilter(filterName = "ssoFilter",urlPatterns = "/hello",initParams = {@WebInitParam(name = "EXCLUDED_PAGES",value = "/receiveToken,/ssoLogout,/ssoDeleteToken")})
+@WebFilter(filterName = "ssoFilter", urlPatterns = "/hello", initParams = {@WebInitParam(name = "EXCLUDED_PAGES", value = "/receiveToken,/ssoLogout,/ssoDeleteToken")})
 public class CommonAuthFilter implements Filter {
     @Autowired
     private UserAccessService userAccessService;
@@ -35,35 +35,37 @@ public class CommonAuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        this.excludedPages=filterConfig.getInitParameter("EXCLUDED_PAGES");
-        if(excludedPages!=null){
-            excludedPageArray=excludedPages.split(",");
+        this.excludedPages = filterConfig.getInitParameter("EXCLUDED_PAGES");
+        if (excludedPages != null) {
+            excludedPageArray = excludedPages.split(",");
         }
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest req=(HttpServletRequest)servletRequest;
-        String username = req.getParameter("ssoUser");
-        if(!StringUtils.isEmpty(username)&&userAccessService.getUserToken(username)!=null){
-            filterChain.doFilter(req,servletResponse);
-        }else{
-            boolean containFlag=false;
-            if(excludedPageArray!=null){
-                for (String excludeStr  : excludedPageArray) {
-                    if(excludeStr.equals(req.getServletPath())){
-                        containFlag=true;
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        Object userName = req.getParameter("ssoUser");
+        if (userName != null
+                && String.valueOf(userName).trim().length() > 0
+                && userAccessService.getUserToken(userName.toString()) != null) {
+            filterChain.doFilter(req, servletResponse);
+        } else {
+            boolean containFlag = false;
+            if (excludedPageArray != null) {
+                for (String excludeStr : excludedPageArray) {
+                    if (excludeStr.equals(req.getServletPath())) {
+                        containFlag = true;
                         break;
                     }
                 }
             }
-            if(containFlag){
-                filterChain.doFilter(req,servletResponse);
-            }else {
+            if (containFlag) {
+                filterChain.doFilter(req, servletResponse);
+            } else {
                 //其他情况都丢给SSO中心去处理
-                HttpServletResponse httpResponse = (HttpServletResponse)servletResponse;
-                String originUrl=req.getRequestURL().toString();
-                httpResponse.sendRedirect(ssoServerPath+"/index?originUrl="+originUrl+"&ssoUser="+username);
+                HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
+                String originUrl = req.getRequestURL().toString();
+                httpResponse.sendRedirect(ssoServerPath + "/index?originUrl=" + originUrl + "&ssoUser=" + userName);
             }
         }
     }

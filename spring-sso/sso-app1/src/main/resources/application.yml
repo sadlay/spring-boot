@@ -2,8 +2,10 @@ server:
   port: 9001
 spring:
   redis:
+    database: 11
     port: 6379
     host: 192.168.3.189
+    password: 123456
     jedis:
       pool:
         max-idle: 8
@@ -13,6 +15,6 @@ spring:
     name: sso-mock-app1
 sso:
   server:
-    url: http://localhost:9003
+    url: http://192.168.3.138:9003
   client:
     protect: /hello

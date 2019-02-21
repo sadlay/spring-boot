@@ -1,9 +1,9 @@
 package com.lay.springsso.ssoserver.controller;
 
 import com.lay.springsso.ssoserver.service.AuthSessionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -30,10 +31,13 @@ public class SsoServerController {
     @RequestMapping("/index")
     public String firstCheck(HttpServletRequest request) {
         String originUrl = request.getParameter("originUrl");
-        String ssoUser = request.getParameter("ssoUser");
+        //String ssoUser = request.getParameter("ssoUser");
+        String ssoUser=(String) request.getSession().getAttribute("userName");
         String token = null;
         boolean loginFlag = false;
-        if (!StringUtils.isEmpty(ssoUser)) {
+        HttpSession session = request.getSession();
+        loginFlag = (Boolean) session.getAttribute("isLogin")!=null?true:false;
+        if (StringUtils.isNotBlank(ssoUser)) {
             //先对用户判断是否已经登陆
             token = authSessionService.getUserToken(ssoUser);
             if (token != null) {
@@ -81,9 +85,11 @@ public class SsoServerController {
     public String login(HttpServletRequest request, HttpServletResponse response,
                         String userName, String password, String originUrl) {
         if(authSessionService.verify(userName,password)){
+            request.getSession().setAttribute("userName",userName);
             String token=authSessionService.cacheSession(userName);
             if(tokenTrans(request,originUrl,userName,token)){
                 //跳转到提示成功的页面
+                request.getSession().setAttribute("isLogin",true);
                 request.setAttribute("helloName", userName);
                 if(originUrl!=null){
                     if(originUrl.contains("?")) {
@@ -98,15 +104,15 @@ public class SsoServerController {
         }
         //验证不通过，重新来吧
         if(originUrl!=null) {
-            request.setAttribute("originalUrl", originUrl);
+            request.setAttribute("originUrl", originUrl);
         }
         return "loginIndex";
     }
 
     //校验token并注册地址
-    @RequestMapping(value="/varifyToken",method=RequestMethod.GET)
+    @RequestMapping(value="/verifyToken",method=RequestMethod.GET)
     @ResponseBody
-    public String varifyToken(String token, String address) {
+    public String verifyToken(String token, String address) {
         return String.valueOf(authSessionService.checkAndAddAddress(token, address));
     }
 
