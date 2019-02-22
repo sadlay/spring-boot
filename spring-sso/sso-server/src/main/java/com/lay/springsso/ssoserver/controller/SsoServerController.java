@@ -46,7 +46,7 @@ public class SsoServerController {
         }
         if (loginFlag) {
             //判断用户如果已经在sso-server认证过，直接发送token
-            if (tokenTrans(request, originUrl, ssoUser, token)) {
+/*            if (tokenTrans(request, originUrl, ssoUser, token)) {
                 if (originUrl != null) {
                     if (originUrl.contains("?")) {
                         originUrl = originUrl + "&ssoUser=" + ssoUser;
@@ -54,8 +54,9 @@ public class SsoServerController {
                         originUrl = originUrl + "?ssoUser=" + ssoUser;
                     }
                 }
-            }
-            return "redirect:" + originUrl;
+            }*/
+            String tokenTransfer = tokenTransfer(originUrl, ssoUser, token);
+            return "redirect:" + tokenTransfer;
         } else {
             //需要替换成专业点的路径,自己登陆下了
             return "redirect:/loginPage?originUrl=" + request.getParameter("originUrl");
@@ -80,14 +81,23 @@ public class SsoServerController {
 
     }
 
+    private String  tokenTransfer(String originUrl,String userName,String token){
+        String[] paths = originUrl.split("/");
+        String shortAppServerUrl = paths[2];
+        String returnUrl = "http://" + shortAppServerUrl + "/receiveToken?ssoToken=" + token + "&userName=" + userName+ "&originUrl="+originUrl;
+        return returnUrl;
+    }
+
     //登陆逻辑,返回的是令牌
     @RequestMapping(value="/doLogin",method= RequestMethod.POST)
     public String login(HttpServletRequest request, HttpServletResponse response,
                         String userName, String password, String originUrl) {
         if(authSessionService.verify(userName,password)){
+            request.getSession().setAttribute("isLogin",true);
             request.getSession().setAttribute("userName",userName);
             String token=authSessionService.cacheSession(userName);
-            if(tokenTrans(request,originUrl,userName,token)){
+            String tokenTransfer = tokenTransfer(originUrl, userName, token);
+/*            if(tokenTrans(request,originUrl,userName,token)){
                 //跳转到提示成功的页面
                 request.getSession().setAttribute("isLogin",true);
                 request.setAttribute("helloName", userName);
@@ -99,12 +109,14 @@ public class SsoServerController {
                     }
                     request.setAttribute("originUrl", originUrl);
                 }
-            }
-            return "hello";//TO-DO 三秒跳转
+            }*/
+            return "redirect:"+tokenTransfer;
+            //return "hello";//TO-DO 三秒跳转
         }
         //验证不通过，重新来吧
         if(originUrl!=null) {
             request.setAttribute("originUrl", originUrl);
+
         }
         return "loginIndex";
     }

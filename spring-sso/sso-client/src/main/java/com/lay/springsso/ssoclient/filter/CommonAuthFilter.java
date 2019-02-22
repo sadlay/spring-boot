@@ -44,7 +44,8 @@ public class CommonAuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
-        Object userName = req.getParameter("ssoUser");
+        //Object userName = req.getParameter("ssoUser");
+        Object userName = req.getSession().getAttribute("userName");
         if (userName != null
                 && String.valueOf(userName).trim().length() > 0
                 && userAccessService.getUserToken(userName.toString()) != null) {

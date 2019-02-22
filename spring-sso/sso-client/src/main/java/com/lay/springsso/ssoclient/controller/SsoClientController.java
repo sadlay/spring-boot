@@ -3,9 +3,9 @@ package com.lay.springsso.ssoclient.controller;
 import com.lay.springsso.ssoclient.service.UserAccessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date: Created in 16:53 2019/2/20
  * @Modified By:IntelliJ IDEA
  */
-@RestController
+@Controller
 public class SsoClientController {
     @Autowired
     RestTemplate restTemplate;
@@ -28,7 +28,7 @@ public class SsoClientController {
     private UserAccessService userAccessService;
 
     @RequestMapping("receiveToken")
-    public String receiveToken(HttpServletRequest request, String ssoToken, String userName) {
+    public String receiveToken(HttpServletRequest request, String ssoToken, String userName,String originUrl) {
         if (!StringUtils.isEmpty(ssoToken)) {
             String realUrl = request.getRequestURL().toString();
             String[] paths = realUrl.split("/");
@@ -37,8 +37,12 @@ public class SsoClientController {
             String resultStr = restTemplate.getForObject(returnUrl, String.class);
             if ("true".equals(resultStr)) {
                 //创建局部会话，保存用户状态为已登陆
+                request.getSession().setAttribute("userName",userName);
+                request.getSession().setAttribute("isLogin",true);
                 userAccessService.putUserStatus(userName, ssoToken);
-                return "success";
+                if(originUrl!=null){
+                    return "redirect:"+originUrl;
+                }
             }
         }
         return "error";
