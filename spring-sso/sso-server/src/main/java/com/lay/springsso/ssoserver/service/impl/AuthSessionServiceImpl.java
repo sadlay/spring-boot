@@ -24,7 +24,7 @@ public class AuthSessionServiceImpl implements AuthSessionService {
     @Override
     public boolean verify(String userName, String password) {
         // 根据自己数据库数据来校验
-        return true;
+        return "lay".equals(userName)&&"password".equals(password);
     }
 
     @Override

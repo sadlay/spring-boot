@@ -61,7 +61,6 @@ public class SsoServerController {
             //需要替换成专业点的路径,自己登陆下了
             return "redirect:/loginPage?originUrl=" + request.getParameter("originUrl");
         }
-
     }
     //登陆界面，返回的是页面地址
     @RequestMapping("/loginPage")
