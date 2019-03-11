@@ -72,6 +72,7 @@ public class SsoServerController {
     }
 
     private boolean tokenTrans(HttpServletRequest request, String originUrl, String userName, String token) {
+
         String[] paths = originUrl.split("/");
         String shortAppServerUrl = paths[2];
         String returnUrl = "http://" + shortAppServerUrl + "/receiveToken?ssoToken=" + token + "&userName=" + userName;

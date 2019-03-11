@@ -21,7 +21,7 @@ import javax.annotation.PostConstruct;
  * @Modified By:IntelliJ IDEA
  */
 @Configuration
-@EnableRedisHttpSession
+@EnableRedisHttpSession()
 public class HttpSessionConfig {
     @Autowired
     private RedisOperationsSessionRepository redisOperationsSessionRepository;
