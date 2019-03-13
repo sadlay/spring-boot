@@ -35,5 +35,6 @@ public class MyTask implements Runnable {
         for(int i=0;i<5;i++){
             scheduledExecutorService.execute(myTask);
         }
+        scheduledExecutorService.shutdown();
     }
 }
