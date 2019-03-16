@@ -12,8 +12,12 @@ import org.springframework.util.Assert;
 public class Main2 {
 
     public static void main(String[] args){
-        String msg="121.2";
+/*        String msg="121.2";
         boolean digits = NumberUtils.isCreatable(msg);
-        System.out.println(digits);
+        System.out.println(digits);*/
+        int y=9;
+        for(;y>0;y--){
+            if(y%3==0) System.out.print(--y);
+        }
     }
 }
