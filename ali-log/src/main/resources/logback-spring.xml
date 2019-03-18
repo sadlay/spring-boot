@@ -1,0 +1,104 @@
+<configuration>
+    <!--为了防止进程退出时，内存中的数据丢失，请加上此选项-->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <!--    <appender name="loghubAppender1" class="com.aliyun.openservices.log.logback.LoghubAppender">
+            &lt;!&ndash;必选项&ndash;&gt;
+            &lt;!&ndash; 账号及网络配置 &ndash;&gt;
+            <endpoint></endpoint>
+            <accessKeyId></accessKeyId>
+            <accessKey></accessKey>
+
+            &lt;!&ndash; sls 项目配置 &ndash;&gt;
+            <projectName>test-proj</projectName>
+            <logstore>store1</logstore>
+            &lt;!&ndash;必选项 (end)&ndash;&gt;
+
+            &lt;!&ndash; 可选项 &ndash;&gt;
+            <topic>topic1</topic>
+            <source>source1</source>
+
+            &lt;!&ndash; 可选项 详见 '参数说明'&ndash;&gt;
+            <packageTimeoutInMS>3000</packageTimeoutInMS>
+            <logsCountPerPackage>4096</logsCountPerPackage>
+            <logsBytesPerPackage>3145728</logsBytesPerPackage>
+            <memPoolSizeInByte>104857600</memPoolSizeInByte>
+            <retryTimes>3</retryTimes>
+            <maxIOThreadSizeInPool>8</maxIOThreadSizeInPool>
+
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">&lt;!&ndash; 打印WARN,ERROR级别的日志 &ndash;&gt;
+                <level>WARN</level>
+            </filter>
+        </appender>-->
+
+    <appender name="loghubAppender2" class="com.aliyun.openservices.log.logback.LoghubAppender">
+        <!--必选项-->
+        <!-- 账号及网络配置 -->
+        <endpoint>cn-beijing.log.aliyuncs.com</endpoint>
+        <accessKeyId></accessKeyId>
+        <accessKey></accessKey>
+
+        <!-- sls 项目配置 -->
+        <projectName>lay</projectName>
+        <logstore>lay</logstore>
+        <!--必选项 (end)-->
+
+        <!-- 可选项 -->
+        <topic>lay-topic</topic>
+        <source>lay-source</source>
+
+        <!-- 可选项 详见 '参数说明'-->
+        <packageTimeoutInMS>3000</packageTimeoutInMS>
+        <logsCountPerPackage>4096</logsCountPerPackage>
+        <logsBytesPerPackage>3145728</logsBytesPerPackage>
+        <memPoolSizeInByte>104857600</memPoolSizeInByte>
+        <retryTimes>3</retryTimes>
+        <maxIOThreadSizeInPool>8</maxIOThreadSizeInPool>
+
+        <!-- 可选项 通过配置 encoder 的 pattern 自定义 log 的格式 -->
+        <encoder>
+            <pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
+        <!-- 可选项 设置时间格式 -->
+        <timeFormat>yyyy-MM-dd'T'HH:mmZ</timeFormat>
+        <!-- 可选项 设置时区 -->
+        <timeZone>Asia/Shanghai</timeZone>
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印INFO级别的日志 -->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+            by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 可用来获取StatusManager中的状态 -->
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+
+    <root>
+        <springProfile name="test,dev">
+            <level value="DEBUG"/>
+            <!--<appender-ref ref="loghubAppender1"/>-->
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
+
+        <!-- 生产环境. -->
+        <springProfile name="prod">
+            <level value="INFO"/>
+            <!--<appender-ref ref="loghubAppender1"/>-->
+            <appender-ref ref="loghubAppender2"/>
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
+
+    </root>
+</configuration>

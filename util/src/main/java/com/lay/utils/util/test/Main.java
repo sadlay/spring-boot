@@ -46,7 +46,7 @@ public class Main {
     public static Map<String, Object> getResult() {
         Map<String, Object> result = new HashMap<>();
         for (int i = 0; i < 5; i++) {
-            List<Map<String, Object>> list = list=new ArrayList<>();;
+            List<Map<String, Object>> list =new ArrayList<>();
             for (int y = 0; y < 10; y++) {
                 Map<String, Object> listMap = new HashMap<>();
                 listMap.put("name",getNumberName());

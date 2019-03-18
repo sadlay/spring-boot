@@ -34,5 +34,6 @@
         <module>spring-config</module>
         <module>spring-sso</module>
         <module>spring-sso</module>
+        <module>ali-log</module>
     </modules>
 </project>
