@@ -31,18 +31,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-
+        
         <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>2.5.0</version>
+            <groupId>com.lay</groupId>
+            <artifactId>ali-log-core</artifactId>
+            <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.aliyun.openservices</groupId>
-            <artifactId>aliyun-log-logback-appender</artifactId>
-            <version>0.1.13</version>
-        </dependency>
+
     </dependencies>
 
     <build>

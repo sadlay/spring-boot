@@ -1,4 +1,4 @@
-package com.lay.alilog;
+package com.lay.ali.log.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
