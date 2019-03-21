@@ -7,8 +7,8 @@ logging:
 aliyun:
   log:
     endpoint: cn-beijing.log.aliyuncs.com
-    accessKeyId: LTAIlsXoPNvGYZ9M
-    accessKey: JZVefZj1LfBklT0ZexC3hx8zDKnzJX
+    accessKeyId:
+    accessKey:
     projectName: lay-project1
     logstore: lay-logstore1
     traceLogstore: lay-trace-logstore1
