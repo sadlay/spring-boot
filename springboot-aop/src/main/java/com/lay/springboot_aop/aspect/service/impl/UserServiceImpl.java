@@ -1,5 +1,6 @@
 package com.lay.springboot_aop.aspect.service.impl;
 
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Service;
 
 import com.lay.springboot_aop.aspect.pojo.User;

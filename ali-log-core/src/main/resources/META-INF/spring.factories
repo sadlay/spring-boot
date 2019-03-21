@@ -1,3 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.lay.log.core.config.LogConfig
+com.lay.log.core.config.LogConfig,\
+com.lay.log.core.config.AopConfig

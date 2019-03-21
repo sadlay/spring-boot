@@ -22,11 +22,27 @@ public class HelloController {
     public String hello() {
         String tag = "success";
         log.info("hello controller:{}", tag);
-        if(true){
+        if (true) {
             RuntimeException error = new RuntimeException("error");
-            log.error("error",error);
+            log.error("error", error);
             throw error;
         }
         return tag;
+    }
+
+    public static void main(String[] args) {
+        int c = 0, k;
+        for (k = 1; k < 3; k++)
+            switch (k) {
+                default:
+                    c += k;
+                case 2:
+                    c++;
+                    break;
+                case 4:
+                    c += 2;
+                    break;
+            }
+        System.out.println(c);
     }
 }

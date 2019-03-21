@@ -70,7 +70,7 @@ public class LogFilter implements Filter {
         MDC.remove("req.userAgent");
         MDC.remove("req.xForwardedFor");
         MDC.remove("req.requestNo");
-        MDC.remove("req.hostIp");
+        MDC.remove("req.ho  stIp");
     }
 
 

@@ -1,108 +1,113 @@
 <configuration>
-    <!--为了防止进程退出时，内存中的数据丢失，请加上此选项-->
-    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 
-    <appender name="loghubAppender1" class="com.aliyun.openservices.log.logback.LoghubAppender">
-        <!--必选项-->
-        <!-- 账号及网络配置 -->
-        <endpoint></endpoint>
-        <accessKeyId></accessKeyId>
-        <accessKey></accessKey>
+    <springProperty scope="context" name="endpoint" source="aliyun.log.endpoint" defaultValue=""/>
+    <springProperty scope="context" name="accessKeyId" source="aliyun.log.accessKeyId" defaultValue=""/>
+    <springProperty scope="context" name="accessKey" source="aliyun.log.accessKey" defaultValue=""/>
+    <springProperty scope="context" name="projectName" source="aliyun.log.projectName" defaultValue=""/>
+    <springProperty scope="context" name="logstore" source="aliyun.log.logstore" defaultValue=""/>
+    <springProperty scope="context" name="traceLogstore" source="aliyun.log.traceLogstore" defaultValue=""/>
+    <springProfile name="test,dev">
+        <!--为了防止进程退出时，内存中的数据丢失，请加上此选项-->
+        <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+        <appender name="ali-log" class="com.aliyun.openservices.log.logback.LoghubAppender">
+            <!--必选项-->
+            <!-- 账号及网络配置 -->
+            <endpoint>${endpoint}</endpoint>
+            <accessKeyId>${accessKeyId}</accessKeyId>
+            <accessKey>${accessKey}</accessKey>
 
-        <!-- sls 项目配置 -->
-        <projectName>test-proj</projectName>
-        <logstore>store1</logstore>
-        <!--必选项 (end)-->
+            <!-- sls 项目配置 -->
+            <projectName>${projectName}</projectName>
+            <logstore>${logstore}</logstore>
+            <!--必选项 (end)-->
 
-        <!-- 可选项 -->
-        <topic>topic1</topic>
-        <source>source1</source>
+            <!-- 可选项 -->
+            <topic>lay-topic</topic>
+            <source>lay-source</source>
 
-        <!-- 可选项 详见 '参数说明'-->
-        <packageTimeoutInMS>3000</packageTimeoutInMS>
-        <logsCountPerPackage>4096</logsCountPerPackage>
-        <logsBytesPerPackage>3145728</logsBytesPerPackage>
-        <memPoolSizeInByte>104857600</memPoolSizeInByte>
-        <retryTimes>3</retryTimes>
-        <maxIOThreadSizeInPool>8</maxIOThreadSizeInPool>
+            <!-- 可选项 详见 '参数说明'-->
+            <packageTimeoutInMS>3000</packageTimeoutInMS>
+            <logsCountPerPackage>4096</logsCountPerPackage>
+            <logsBytesPerPackage>3145728</logsBytesPerPackage>
+            <memPoolSizeInByte>104857600</memPoolSizeInByte>
+            <retryTimes>3</retryTimes>
+            <maxIOThreadSizeInPool>8</maxIOThreadSizeInPool>
 
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><!-- 打印WARN,ERROR级别的日志 -->
-            <level>WARN</level>
-        </filter>
-    </appender>
-    <appender name="loghubAppender2" class="com.aliyun.openservices.log.logback.LoghubAppender">
-        <!--必选项-->
-        <!-- 账号及网络配置 -->
-        <endpoint>cn-beijing.log.aliyuncs.com</endpoint>
-        <accessKeyId></accessKeyId>
-        <accessKey></accessKey>
+            <!-- 可选项 通过配置 encoder 的 pattern 自定义 log 的格式 -->
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{0} - %msg%n
+                </pattern>
+                <charset>UTF-8</charset>
+            </encoder>
 
-        <!-- sls 项目配置 -->
-        <projectName>lay-project</projectName>
-        <logstore>lay-logstore</logstore>
-        <!--必选项 (end)-->
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><!-- 只打印INFO级别的日志 -->
+                <level>INFO</level>
+            </filter>
+        </appender>
 
-        <!-- 可选项 -->
-        <topic>lay-topic</topic>
-        <source>lay-source</source>
+        <appender name="ali-trace-log" class="com.aliyun.openservices.log.logback.LoghubAppender">
+            <!--必选项-->
+            <!-- 账号及网络配置 -->
+            <endpoint>${endpoint}</endpoint>
+            <accessKeyId>${accessKeyId}</accessKeyId>
+            <accessKey>${accessKey}</accessKey>
 
-        <!-- 可选项 详见 '参数说明'-->
-        <packageTimeoutInMS>3000</packageTimeoutInMS>
-        <logsCountPerPackage>4096</logsCountPerPackage>
-        <logsBytesPerPackage>3145728</logsBytesPerPackage>
-        <memPoolSizeInByte>104857600</memPoolSizeInByte>
-        <retryTimes>3</retryTimes>
-        <maxIOThreadSizeInPool>8</maxIOThreadSizeInPool>
+            <!-- sls 项目配置 -->
+            <projectName>${projectName}</projectName>
+            <logstore>${traceLogstore}</logstore>
+            <!--必选项 (end)-->
 
-        <filter class="com.lay.log.core.filter.LogChainFilter"/>
-        <!-- 可选项 通过配置 encoder 的 pattern 自定义 log 的格式 -->
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %X{req.hostIp} %X{req.requestNo} [%thread] %-5level %logger{0} -
-                %msg%n
-            </pattern>
-            <!--<pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>-->
-            <charset>UTF-8</charset>
-        </encoder>
+            <!-- 可选项 -->
+            <topic>lay-topic</topic>
+            <source>lay-source</source>
 
-        <!-- 可选项 设置时间格式 -->
-        <timeFormat>yyyy-MM-dd'T'HH:mmZ</timeFormat>
-        <!-- 可选项 设置时区 -->
-        <timeZone>Asia/Shanghai</timeZone>
+            <!-- 可选项 详见 '参数说明'-->
+            <packageTimeoutInMS>3000</packageTimeoutInMS>
+            <logsCountPerPackage>4096</logsCountPerPackage>
+            <logsBytesPerPackage>3145728</logsBytesPerPackage>
+            <memPoolSizeInByte>104857600</memPoolSizeInByte>
+            <retryTimes>3</retryTimes>
+            <maxIOThreadSizeInPool>8</maxIOThreadSizeInPool>
 
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><!-- 只打印INFO级别的日志 -->
-            <level>INFO</level>
-        </filter>
-    </appender>
+            <filter class="com.lay.log.core.filter.LogChainFilter"/>
+            <!-- 可选项 通过配置 encoder 的 pattern 自定义 log 的格式 -->
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %X{req.hostIp} %X{req.requestNo} [%thread] %-5level %logger{0} -
+                    %msg%n
+                </pattern>
+                <!--<pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>-->
+                <charset>UTF-8</charset>
+            </encoder>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
-            by default -->
-        <filter class="com.lay.log.core.filter.LogChainFilter"/>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %yellow(%X{req.hostIp}) %highlight(%X{req.requestNo}) %green([%thread])
-                %highlight(%-5level) %cyan(%logger{50}) - %msg%n
-            </pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-    </appender>
+            <!-- 可选项 设置时间格式 -->
+            <timeFormat>yyyy-MM-dd'T'HH:mmZ</timeFormat>
+            <!-- 可选项 设置时区 -->
+            <timeZone>Asia/Shanghai</timeZone>
 
-    <!-- 可用来获取StatusManager中的状态 -->
-    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><!-- 只打印INFO级别的日志 -->
+                <level>INFO</level>
+            </filter>
+        </appender>
 
-    <root>
-        <springProfile name="test,dev">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+                by default -->
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%L- %msg%n
+                </pattern>
+                <charset>UTF-8</charset>
+            </encoder>
+        </appender>
+        <!-- 可用来获取StatusManager中的状态 -->
+        <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+        <root>
             <level value="INFO"/>
             <!--<appender-ref ref="loghubAppender1"/>-->
             <appender-ref ref="STDOUT"/>
-        </springProfile>
+            <appender-ref ref="ali-log"/>
+            <appender-ref ref="ali-trace-log"/>
+        </root>
+    </springProfile>
 
-        <!-- 生产环境. -->
-        <springProfile name="prod">
-            <level value="INFO"/>
-            <!--<appender-ref ref="loghubAppender1"/>-->
-            <appender-ref ref="loghubAppender2"/>
-            <appender-ref ref="STDOUT"/>
-        </springProfile>
 
-    </root>
 </configuration>
