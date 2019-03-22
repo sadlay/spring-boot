@@ -30,7 +30,7 @@ public class HelloController {
         return tag;
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         int c = 0, k;
         for (k = 1; k < 3; k++)
             switch (k) {
@@ -44,5 +44,5 @@ public class HelloController {
                     break;
             }
         System.out.println(c);
-    }
+    }*/
 }
