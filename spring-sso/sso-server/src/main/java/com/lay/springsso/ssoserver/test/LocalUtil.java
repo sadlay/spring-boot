@@ -11,26 +11,39 @@ import org.springframework.web.bind.annotation.PutMapping;
  * @Modified By:IntelliJ IDEA
  */
 public class LocalUtil {
-    private static final TokenSession TOKEN_SESSION=new TokenSession("token1","username1");
+    public static TokenSession TOKEN_SESSION;
 
-    private static final ThreadLocal<TokenSession> localSession=new ThreadLocal<TokenSession>(){
+    private static final ThreadLocal<TokenSession> localSession = new ThreadLocal<TokenSession>() {
 /*        @Override
         protected TokenSession initialValue() {
-            return new TokenSession("token1","username1");
+            return TOKEN_SESSION;
         }*/
     };
 
-    public static void set(TokenSession tokenSession){
+    public static void set(TokenSession tokenSession) {
         localSession.set(tokenSession);
     }
-    public static TokenSession getTokenSession(){
+
+    public static TokenSession getTokenSession() {
         TokenSession tokenSession = localSession.get();
-        //localSession.remove();
         return tokenSession;
     }
 
-    public static void remove(){
+    public static void remove() {
         localSession.remove();
     }
 
+
+    public static void setStaticSession(TokenSession tokenSession) {
+        LocalUtil.TOKEN_SESSION = tokenSession;
+    }
+
+    public static TokenSession getStaticSession() {
+        return TOKEN_SESSION;
+    }
+
+
+    public static void removeStaticSession() {
+        TOKEN_SESSION = null;
+    }
 }
