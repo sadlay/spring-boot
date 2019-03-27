@@ -11,6 +11,7 @@ public class SpringbootRedisApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }
