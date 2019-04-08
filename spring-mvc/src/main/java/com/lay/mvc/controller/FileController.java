@@ -1,6 +1,7 @@
 package com.lay.mvc.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,6 +45,7 @@ public class FileController {
      */
     @PostMapping("/upload/request")
     @ResponseBody
+    @Transactional
     public Map<String,Object> uploadRequest(HttpServletRequest request){
         boolean flag=false;
         MultipartHttpServletRequest mreq=null;
