@@ -1,6 +1,7 @@
 package com.lay.spring.event.controller;
 
-import com.lay.spring.event.publisher.DemoEvent;
+import com.lay.spring.event.publisher.*;
+import com.lay.spring.event.util.EventPublishUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,25 @@ public class EventController {
 
         try {
             applicationEventPublisher.publishEvent(demoEvent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("失败", e);
+        }
+        log.info("finish publish event");
+        return "success";
+    }
+
+
+    @GetMapping("/userEvent")
+    @ResponseBody
+    public Object userEvent(@RequestParam String msg) {
+        DemoEvent demoEvent = new DemoEvent(this, msg);
+
+        try {
+            AnimalEvent baseEvent=new AnimalEvent(msg);
+            Object userName = baseEvent.getUserName();
+//            applicationEventPublisher.publishEvent(baseEvent);
+            EventPublishUtil.publish(baseEvent);
         } catch (Exception e) {
             e.printStackTrace();
             log.info("失败", e);

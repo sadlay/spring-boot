@@ -24,8 +24,8 @@ public class AsyncEventConfig {
     public ApplicationEventMulticaster simpleApplicationEventMulticaster() {
         SimpleApplicationEventMulticaster eventMulticaster
                 = new SimpleApplicationEventMulticaster();
-        eventMulticaster.setTaskExecutor(Executors.newFixedThreadPool(5));
-        //eventMulticaster.setErrorHandler(new MyErrorHandler());
+        //eventMulticaster.setTaskExecutor(Executors.newFixedThreadPool(5));
+        eventMulticaster.setErrorHandler(new MyErrorHandler());
         return eventMulticaster;
     }
 
