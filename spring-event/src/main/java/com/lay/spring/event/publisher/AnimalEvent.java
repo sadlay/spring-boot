@@ -10,14 +10,14 @@ import java.util.Objects;
  * @Date: Created in 10:37 2019/4/9
  * @Modified By:IntelliJ IDEA
  */
-public class AnimalEvent<T> extends BaseEvent<T>{
+public class AnimalEvent<T> extends BaseEvent{
 
-    public AnimalEvent(T userName) {
+    public AnimalEvent(String userName) {
         super(userName);
     }
 
     @Override
-    public T getUserName() {
+    public String getUserName() {
         return userName;
     }
 

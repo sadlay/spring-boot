@@ -6,12 +6,12 @@ package com.lay.spring.event.publisher;
  * @Date: Created in 15:46 2019/4/9
  * @Modified By:IntelliJ IDEA
  */
-public abstract class BaseEvent<T> {
-    protected T userName;
+public abstract class BaseEvent {
+    protected String userName;
 
-    public BaseEvent(T userName) {
+    public BaseEvent(String userName) {
         this.userName = userName;
     }
 
-    abstract T getUserName();
+    public abstract String getUserName();
 }

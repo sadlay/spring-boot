@@ -1,6 +1,7 @@
 package com.lay.spring.event.config;
 
 import com.lay.spring.event.handler.MyErrorHandler;
+import com.lay.spring.event.util.EventPublishUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ApplicationEventMulticaster;
@@ -27,6 +28,11 @@ public class AsyncEventConfig {
         //eventMulticaster.setTaskExecutor(Executors.newFixedThreadPool(5));
         eventMulticaster.setErrorHandler(new MyErrorHandler());
         return eventMulticaster;
+    }
+
+    @Bean
+    public EventPublishUtil eventPublishUtil(){
+        return new EventPublishUtil();
     }
 
 }

@@ -10,16 +10,16 @@ import java.util.Objects;
  * @Date: Created in 10:37 2019/4/9
  * @Modified By:IntelliJ IDEA
  */
-public class UserEvent<T> extends BaseEvent<T> {
+public class UserEvent<T> extends BaseEvent {
 
 
-    public UserEvent(T userName) {
+    public UserEvent(String userName) {
         super(userName);
     }
 
 
     @Override
-    public T getUserName() {
+    public String getUserName() {
         return userName;
     }
 

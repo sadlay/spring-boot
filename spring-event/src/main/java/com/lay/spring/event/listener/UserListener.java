@@ -9,18 +9,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
+
 /**
  * @Description:
  * @Author: lay
  * @Date: Created in 10:38 2019/4/9
  * @Modified By:IntelliJ IDEA
  */
-@Component
+//@Component
 public class UserListener {
     private static final Logger log = LoggerFactory.getLogger(UserListener.class);
 
-    @EventListener
-    public void onUserEvent(UserEvent userEvent) {
+    @EventListener(UserEvent.class)
+    public void onUserEvent(BaseEvent userEvent) {
         String userName = userEvent.getUserName();
         log.info("UserListener :{}", userName);
     }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
  * @Date: Created in 16:32 2019/4/9
  * @Modified By:IntelliJ IDEA
  */
-@Component
 public class EventPublishUtil implements ApplicationEventPublisherAware {
 
     private static ApplicationEventPublisher applicationEventPublisher;

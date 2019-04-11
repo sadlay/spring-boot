@@ -41,13 +41,13 @@ public class EventController {
     @GetMapping("/userEvent")
     @ResponseBody
     public Object userEvent(@RequestParam String msg) {
-        DemoEvent demoEvent = new DemoEvent(this, msg);
+        BaseEvent demoEvent = new UserEvent( msg);
 
         try {
-            AnimalEvent baseEvent=new AnimalEvent(msg);
-            Object userName = baseEvent.getUserName();
-//            applicationEventPublisher.publishEvent(baseEvent);
-            EventPublishUtil.publish(baseEvent);
+//            AnimalEvent baseEvent=new AnimalEvent(msg);
+//            Object userName = baseEvent.getUserName();
+            //applicationEventPublisher.publishEvent(demoEvent);
+            EventPublishUtil.publish(demoEvent);
         } catch (Exception e) {
             e.printStackTrace();
             log.info("失败", e);
