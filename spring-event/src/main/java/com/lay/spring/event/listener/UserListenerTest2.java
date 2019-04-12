@@ -2,6 +2,7 @@ package com.lay.spring.event.listener;
 
 import com.lay.spring.event.publisher.AnimalEvent;
 import com.lay.spring.event.publisher.UserEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,8 +13,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserListenerTest2 implements BaseListener{
-    
 
+    @Override
+    @EventListener
+    public void onUserEvent(UserEvent userEvent) {
+        System.out.println("UserListenerTest2-------UserEvent--------");
+    }
 
     @Override
     public void onAnimalEvent(AnimalEvent userEvent) {
