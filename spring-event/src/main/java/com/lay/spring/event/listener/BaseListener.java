@@ -12,7 +12,7 @@ import org.springframework.context.event.EventListener;
  */
 public interface BaseListener {
 
-    @EventListener(condition = "#userEvent.userName.equals('layanan')")
+    @EventListener
     default void onUserEvent(UserEvent userEvent){
         System.out.println("BaseListener ---------");
     }

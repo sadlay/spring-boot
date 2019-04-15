@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class UserListenerTest implements BaseListener {
 
     @Override
+    @EventListener(condition = "!#userEvent.isUserEvent()")
     public void onUserEvent(UserEvent userEvent) {
         System.out.println("UserListenerTest-------UserEvent--------");
     }

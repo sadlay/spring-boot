@@ -12,15 +12,19 @@ import java.util.Objects;
  */
 public class UserEvent<T> extends BaseEvent {
 
-
     public UserEvent(String userName) {
-        super(userName);
+        super(userName, true);
     }
 
 
     @Override
     public String getUserName() {
         return userName;
+    }
+
+    @Override
+    public boolean isUserEvent() {
+        return isUserEvent;
     }
 
 

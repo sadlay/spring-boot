@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
  * @Modified By:IntelliJ IDEA
  */
 @Component
-public class UserListenerTest2 implements BaseListener{
+public class UserListenerTest2 implements BaseListener {
 
     @Override
-    @EventListener
+    @EventListener(condition = "#userEvent.isUserEvent()")
     public void onUserEvent(UserEvent userEvent) {
         System.out.println("UserListenerTest2-------UserEvent--------");
     }
