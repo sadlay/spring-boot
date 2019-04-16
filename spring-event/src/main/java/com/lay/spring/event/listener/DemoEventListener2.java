@@ -19,6 +19,6 @@ public class DemoEventListener2 implements ApplicationListener<DemoEvent> {
     @Override
     public void onApplicationEvent(DemoEvent demoEvent) {
         throw new RuntimeException("ssss");
-        //log.info("receiveB event:{}",demoEvent.getMessage());
+        log.info("receiveB event:{}",demoEvent.getMessage());
     }
 }
