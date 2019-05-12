@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>测试JSR-303</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var list=[
+                {
+                    name:'zgs',
+                    age:'30',
+                    face:'ugly'
+                },
+                {
+                    name:'lyn',
+                    age:'18',
+                    face:'beautiful'
+                }
+            ];
+            var list1 = cloneObjectFn(list);
+            list1[0].sex=1;
+            var list2 = cloneObjectFn(list);
+        });
+
+        function cloneObjectFn(obj) {
+            return JSON.parse(JSON.stringify(obj));
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

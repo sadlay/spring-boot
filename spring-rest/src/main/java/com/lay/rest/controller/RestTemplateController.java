@@ -44,6 +44,7 @@ public class RestTemplateController {
         //使用map封装多个参数，提高可读性
         Map<String,Object> params=new HashMap<>();
         params.put("userName","user");
+
         params.put("note","note");
         params.put("start",2);
         params.put("limit",8);
