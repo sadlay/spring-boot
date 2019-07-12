@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 /**
  * @Description: 认证过滤器（负责判断用户是否登陆和重定向到sso-server）
@@ -38,6 +39,7 @@ public class CommonAuthFilter implements Filter {
         this.excludedPages = filterConfig.getInitParameter("EXCLUDED_PAGES");
         if (excludedPages != null) {
             excludedPageArray = excludedPages.split(",");
+
         }
     }
 

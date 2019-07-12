@@ -1,12 +1,9 @@
 package com.lay.springboot.springsecurity.util;
 
 import com.lay.springboot.springsecurity.controller.ImageValidateController;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.session.pository;
-import org.springframework.session.web.http.positoryFilter;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestBindingException;
