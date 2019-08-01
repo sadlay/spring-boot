@@ -1,0 +1,18 @@
+server:
+  port: 9999
+
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 1024MB
+      location: D:/file/up
+      max-file-size: 5242880
+      max-request-size: 20MB
+      resolve-lazily: false

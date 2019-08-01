@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Down</title>
+</head>
+
+<body>
+<!-- 判断是否是根目录，决定是否显示返回按钮 -->
+<% if(isRoot==false){ %>
+<a href="${ctxPath}/list?filePath=${parent}">返回</a>
+<% } %>
+<!-- 列表 -->
+<table border="1" width="500">
+    <tr>
+        <th>name</th>
+        <th>operation</th>
+    </tr>
+    <!-- 遍历域中保存的List -->
+    <% for(v in fileList){ %>
+    <tr>
+        <td>${v.name}</td>
+        <!-- 如果是文件就显示下载并超链接到下载Servlet，参数为文件的绝对路径和文件名 -->
+        <% if(v.isFile){ %>
+        <td>
+            <a href="${ctxPath}/down?filePath=${v.path}&fileName=${v.name}">Down</a>
+        </td>
+        <% } else{ %>
+        <!-- 如果是文件夹就显示打开并超链接到文件列表Servlet，参数为文件夹的绝对路径 -->
+        <td>
+            <a href="${ctxPath}/list?filePath=${v.path}">Open</a>
+        </td>
+        <% } %>
+    </tr>
+    <% } %>
+</table>
+<a href="${ctxPath}/">Home</a>
+</body>
+</html>
