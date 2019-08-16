@@ -26,6 +26,7 @@ public class CallableThreadTest implements Callable {
         try
         {
             System.out.println("子线程的返回值："+ft.get());
+            CallableThreadTest callableThreadTest=new CallableThreadTest();
         } catch (InterruptedException e)
         {
             e.printStackTrace();
