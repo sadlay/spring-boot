@@ -1,45 +1,32 @@
 package com.lay.redis.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisZSetCommands.Range;
-import org.springframework.data.redis.core.BoundHashOperations;
-import org.springframework.data.redis.core.BoundListOperations;
-import org.springframework.data.redis.core.BoundSetOperations;
-import org.springframework.data.redis.core.BoundZSetOperations;
-import org.springframework.data.redis.core.DefaultTypedTuple;
-import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import redis.clients.jedis.Jedis;
+
+import java.util.*;
+import java.util.function.Consumer;
 
 @Controller
 @RequestMapping(value = "/redis")
 public class RedisController {
     @Autowired
     private RedisTemplate redisTemplate = null;
-    
+
     @Autowired
     private StringRedisTemplate stringRedisTemplate = null;
-    
+
     /**
      * 操作redis字符串和hash散列
+     *
      * @return
-     * @Date        2018年11月1日 下午1:56:30 
-     * @Author      lay
+     * @Date 2018年11月1日 下午1:56:30
+     * @Author lay
      */
     @RequestMapping(value = "/stringAndHash")
     @ResponseBody
@@ -56,7 +43,7 @@ public class RedisController {
         stringRedisTemplate.opsForValue().increment("int", 1);
         System.out.println("-------------使用运算+1-------------------: " + redisTemplate.opsForValue().get("int"));
         //获得底层jedis连接
-        Jedis jedis = (Jedis)stringRedisTemplate.getConnectionFactory().getConnection().getNativeConnection();
+        Jedis jedis = (Jedis) stringRedisTemplate.getConnectionFactory().getConnection().getNativeConnection();
         //减一操作，这个命令RedisTemplate不支持，所以先获取上面的底层连接再操作。
         jedis.decr("int");
         System.out.println("-------------使用底层jedis -1-------------------: " + redisTemplate.opsForValue().get("int"));
@@ -95,17 +82,18 @@ public class RedisController {
         hashOps.entries().forEach((k, v) -> {
             System.out.println(k + ": " + v);
         });
-        
+
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("success", true);
         return map;
     }
-    
+
     /**
      * 测试redis list列表
+     *
      * @return
-     * @Date        2018年11月1日 下午1:58:25 
-     * @Author      lay
+     * @Date 2018年11月1日 下午1:58:25
+     * @Author lay
      */
     @RequestMapping(value = "list")
     @ResponseBody
@@ -115,7 +103,7 @@ public class RedisController {
         stringRedisTemplate.opsForList().leftPushAll("list1", "v2", "v4", "v6", "v8", "v10");
         System.out.println("----------链表从左到右的顺序为v10,v8,v6,v4,v2----------------:");
         stringRedisTemplate.opsForList().range("list1", 0, stringRedisTemplate.opsForList().size("list1") - 1).forEach(s -> System.out.println(s));
-        
+
         //从左到右顺序为v1,v2,v3,v4,v5,v6
         stringRedisTemplate.opsForList().rightPushAll("list2", "v1", "v2", "v3", "v4", "v5", "v6");
         System.out.println("----------从左到右顺序为v1,v2,v3,v4,v5,v6----------------:");
@@ -123,11 +111,11 @@ public class RedisController {
         // 绑定list2链表操作
         BoundListOperations listOps = stringRedisTemplate.boundListOps("list2");
         //从右边弹出一个成员
-        String result1 = (String)listOps.rightPop();
+        String result1 = (String) listOps.rightPop();
         System.out.println("----------从右边弹出一个成员----------------: " + result1);
         listOps.range(0, listOps.size() - 1).forEach(s -> System.out.println(s));
         //获取定位元素,redis从0开始运算
-        String result2 = (String)listOps.index(1);
+        String result2 = (String) listOps.index(1);
         System.out.println("----------获取定位元素,redis从0开始运算----------------: " + result2);
         listOps.range(0, listOps.size() - 1).forEach(s -> System.out.println(s));
         //从左边插入链表
@@ -135,7 +123,7 @@ public class RedisController {
         System.out.println("----------从左边插入链表----------------: " + "v0");
         listOps.range(0, listOps.size() - 1).forEach(s -> System.out.println(s));
         listOps.range(0, listOps.size() - 1).forEach(new Consumer<String>() {
-            
+
             @Override
             public void accept(String s) {
                 System.out.println();
@@ -151,12 +139,13 @@ public class RedisController {
         map.put("success", true);
         return map;
     }
-    
+
     /**
      * 测试redis set
+     *
      * @return
-     * @Date        2018年11月1日 下午1:58:25 
-     * @Author      lay
+     * @Date 2018年11月1日 下午1:58:25
+     * @Author lay
      */
     @RequestMapping(value = "set")
     @ResponseBody
@@ -190,12 +179,13 @@ public class RedisController {
         map.put("success", true);
         return map;
     }
-    
+
     /**
      * 测试redis zset
+     *
      * @return
-     * @Date        2018年11月1日 下午1:58:25 
-     * @Author      lay
+     * @Date 2018年11月1日 下午1:58:25
+     * @Author lay
      */
     @RequestMapping(value = "zset")
     @ResponseBody
@@ -214,32 +204,32 @@ public class RedisController {
         BoundZSetOperations zsetOps = stringRedisTemplate.boundZSetOps("zset1");
         System.out.println("------------init----------------");
         zsetOps.rangeWithScores(0, zsetOps.size() - 1).forEach(new Consumer() {
-            
+
             @Override
             public void accept(Object t) {
-                TypedTuple<String> s = (TypedTuple)t;
+                TypedTuple<String> s = (TypedTuple) t;
                 System.out.println(s.getValue() + " : " + s.getScore());
             }
-            
+
         });
         //增加一个元素
         zsetOps.add("value10", 0.26);
         System.out.println("------------增加一个元素 value10----------------");
         zsetOps.rangeWithScores(0, zsetOps.size() - 1).forEach(new Consumer() {
-            
+
             @Override
             public void accept(Object t) {
-                TypedTuple<String> s = (TypedTuple)t;
+                TypedTuple<String> s = (TypedTuple) t;
                 System.out.println(s.getValue() + " : " + s.getScore());
             }
-            
+
         });
         // 获得range 1---6
         Set<String> setRange = zsetOps.range(1, 6);
         System.out.println("------------获得range 1---6---------------");
         Iterator itor = setRange.iterator();
         if (itor.hasNext()) {
-            String s = (String)itor.next();
+            String s = (String) itor.next();
             System.out.println(s);
         }
         //按分数排序获得有序集合
@@ -247,7 +237,7 @@ public class RedisController {
         System.out.println("------------按分数排序获得有序集合 (0.2, 0.6)---------------");
         Iterator itor2 = setScore.iterator();
         if (itor.hasNext()) {
-            String s = (String)itor.next();
+            String s = (String) itor.next();
             System.out.println(s);
         }
         //自定义范围
@@ -261,23 +251,23 @@ public class RedisController {
         System.out.println("------------自定义范围 (value3, value8)---------------");
         Iterator itor3 = setLex.iterator();
         if (itor.hasNext()) {
-            String s = (String)itor.next();
+            String s = (String) itor.next();
             System.out.println(s);
         }
-        
+
         //删除元素
         zsetOps.remove("value9", "value2");
         System.out.println("------------删除元素 value9, value2---------------");
         zsetOps.rangeWithScores(0, zsetOps.size() - 1).forEach(new Consumer() {
-            
+
             @Override
             public void accept(Object t) {
-                TypedTuple<String> s = (TypedTuple)t;
+                TypedTuple<String> s = (TypedTuple) t;
                 System.out.println(s.getValue() + " : " + s.getScore());
             }
-            
+
         });
-        
+
         //求分数
         Double score = zsetOps.score("value8");
         System.out.println("-----------求分数 value8---------------：" + score);
@@ -285,25 +275,25 @@ public class RedisController {
         Set<TypedTuple<String>> rangeSet = zsetOps.rangeWithScores(1, 6);
         System.out.println("-----------在下标区间下，按分数排序 (1, 6)---------------");
         rangeSet.forEach(new Consumer() {
-            
+
             @Override
             public void accept(Object t) {
-                TypedTuple<String> s = (TypedTuple)t;
+                TypedTuple<String> s = (TypedTuple) t;
                 System.out.println(s.getValue() + " : " + s.getScore());
             }
-            
+
         });
         //在分数区间下，按分数排序，同时返回value和score
         Set<TypedTuple<String>> scoreSet = zsetOps.rangeByScoreWithScores(0.1, 0.6);
         System.out.println("-----------在分数区间下，按分数排序 (0.1, 0.6)---------------");
         scoreSet.forEach(new Consumer() {
-            
+
             @Override
             public void accept(Object t) {
-                TypedTuple<String> s = (TypedTuple)t;
+                TypedTuple<String> s = (TypedTuple) t;
                 System.out.println(s.getValue() + " : " + s.getScore());
             }
-            
+
         });
         //按从大到小排序
         Set<String> reverseSet = zsetOps.reverseRange(0, zsetOps.size() - 1);
@@ -313,18 +303,19 @@ public class RedisController {
         map.put("success", true);
         return map;
     }
-    
+
     /**
      * redis 开启事务
+     *
      * @return
-     * @Date        2018年11月2日 上午10:13:19 
-     * @Author      lay
+     * @Date 2018年11月2日 上午10:13:19
+     * @Author lay
      */
     @RequestMapping(value = "/multi")
     @ResponseBody
     public Map<String, Object> testMulti() {
         redisTemplate.opsForValue().set("key1", "value1");
-        List list = (List)redisTemplate.execute((RedisOperations operations) -> {
+        List list = (List) redisTemplate.execute((RedisOperations operations) -> {
             //设置要监控的Key
             operations.watch("key1");
             //开启事务。在exec命令执行前，全部都只是进入队列
@@ -338,17 +329,18 @@ public class RedisController {
             //执行exec命令，将先判断key1是否在监控后被修改过，如果是则不执行事务，否则就执行事务
             return operations.exec();
         });
-        
+
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("success", true);
         return map;
     }
-    
+
     /**
      * redis 流水线
+     *
      * @return
-     * @Date        2018年11月2日 上午10:13:29 
-     * @Author      lay
+     * @Date 2018年11月2日 上午10:13:29
+     * @Author lay
      */
     @RequestMapping(value = "/pipeline")
     @ResponseBody
@@ -357,7 +349,7 @@ public class RedisController {
         List list = redisTemplate.executePipelined((RedisOperations operations) -> {
             for (int i = 1; i <= 100000; i++) {
                 operations.opsForValue().set("pipeline_" + i, "value" + i);
-                String value = (String)operations.opsForValue().get("pipeline_" + i);
+                String value = (String) operations.opsForValue().get("pipeline_" + i);
                 if (i == 100000) {
                     System.out.println("命令在队列中，所以值为null【" + value + "】");
                 }
@@ -370,7 +362,7 @@ public class RedisController {
         map.put("success", true);
         return map;
     }
-    
+
     @RequestMapping(value = "/publish")
     @ResponseBody
     public Map<String, Object> testPublish() {
